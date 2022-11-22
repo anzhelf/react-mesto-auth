@@ -17,7 +17,7 @@ function Header({ onLogged }) {
       />
       <div className='header__box'>
         <span className='header__email'>{onLogged && login}</span>
-        <a href='/sign-in' className={`header__link ${onLogged ? 'header__link-authorization' : ''}`}>{onLogged ? 'Выход' : textLink}</a>
+        <Link to='/sign-in' className={`header__link ${onLogged ? 'header__link-authorization' : ''}`}>{onLogged ? 'Выход' : textLink}</Link>
       </div>
     </header>
   );

@@ -55,7 +55,7 @@ function Register() {
             type="submit"
             aria-label="Кнопка сохранить"
           >Зарегистрироваться</button>
-          <span className='authorization__span'>Уже зарегистрированы? <a className='authorization__link' href='/sign-in'>Войти</a></span>
+          <span className='authorization__span'>Уже зарегистрированы? <Link className='authorization__link' to='/sign-in'>Войти</Link></span>
         </form>
       </div>
     </div>
