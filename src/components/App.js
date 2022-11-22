@@ -10,6 +10,10 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import '../index.css';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import Register from './Register';
+import Login from './Login';
 import AddPlacePopup from './AddPlacePopup';
 
 function App() {
@@ -27,8 +31,6 @@ function App() {
     Promise.all([api.getDataUser(), api.getInitialCards()])
       .then(([dataUser, dataCards]) => {
         setCurrentUser(dataUser);
-        console.log(dataUser);
-        console.log(dataCards);
         setCards(dataCards);
       })
       .catch((err) => console.log(err));
@@ -117,50 +119,67 @@ function App() {
   }
 
   return (
+
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
-        <Main
-          onEditAvatar={handleEditAvatarClick}
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onCardClick={handleCardClick}
-          cards={cards}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-        />
+        <Switch>
+          <Route exact path="/">
+
+            <Main
+              onEditAvatar={handleEditAvatarClick}
+              onEditProfile={handleEditProfileClick}
+              onAddPlace={handleAddPlaceClick}
+              onCardClick={handleCardClick}
+              cards={cards}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+            />
+
+            <EditAvatarPopup
+              isOpen={isEditAvatarPopupOpen}
+              onClose={closeAllPopups}
+              onUpdateAvatar={handleUpdateAvatar}
+            />
+
+            <EditProfilePopup
+              isOpen={isEditProfilePopupOpen}
+              onClose={closeAllPopups}
+              onUpdateUser={handleUpdateUser}
+            />
+
+            <AddPlacePopup
+              isOpen={isAddPlacePopupOpen}
+              onClose={closeAllPopups}
+              onAddPlace={handleUpdateAddCard}
+            />
+
+            <PopupWithForm
+              name='delete'
+              title='Вы уверены?'
+              buttonSave='Да'
+              onClose={closeAllPopups}
+            />
+
+            <ImagePopup
+              card={selectedCard}
+              isOpen={isImagePopupOpen}
+              onClose={closeAllPopups}
+            />
+
+          </Route>
+
+          <Route path="/sign-up">
+            <Register />
+          </Route>
+
+          <Route path="/sign-in">
+            <Login />
+          </Route>
+        </Switch>
+
         <Footer />
 
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          onUpdateAvatar={handleUpdateAvatar}
-        />
-
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          onUpdateUser={handleUpdateUser}
-        />
-
-        <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-          onAddPlace={handleUpdateAddCard}
-        />
-
-        <PopupWithForm
-          name='delete'
-          title='Вы уверены?'
-          buttonSave='Да'
-          onClose={closeAllPopups}
-        />
-
-        <ImagePopup
-          card={selectedCard}
-          isOpen={isImagePopupOpen}
-          onClose={closeAllPopups}
-        />
       </CurrentUserContext.Provider>
     </div>
   );

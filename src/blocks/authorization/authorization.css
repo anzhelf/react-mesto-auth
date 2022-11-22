@@ -1,0 +1,96 @@
+.authorization {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: relative;
+  height: 489px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.authorization__container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  margin: 0 auto;
+  padding: 60px 0 0;
+  width: 358px;
+  max-height: 100%;
+  box-sizing: border-box;
+}
+
+.authorization__title {
+  margin: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.authorization__form {
+  width: 100%;
+  padding: 20px 0 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: relative;
+
+}
+
+.authorization__label {}
+
+.authorization__input {
+  color: #fff;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: #CCCCCC 2px solid;
+  background-color: #000;
+  width: 358px;
+  height: 27px;
+  padding: 0;
+  margin: 30px 0 0;
+}
+
+.authorization__label-password {
+  margin-bottom: 216px;
+}
+
+.authorization__save-button {
+  width: 358px;
+  height: 50px;
+  color: #000;
+  background-color: #fff;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21.78px;
+  border: none;
+  padding: 0;
+  border-radius: 2px;
+
+  opacity: 1;
+  transition: opacity 0.2s linear 0.1s;
+}
+
+.authorization__span {
+  position: absolute;
+  top: 413px;
+  left: 73px;
+  margin: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.authorization__link {
+  font-style: normal;
+  color: #FFFFFF;
+  text-decoration: none;
+}
