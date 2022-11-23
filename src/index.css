@@ -38,6 +38,11 @@
 @import url(./blocks/popup/__close-icon/popup__close-icon.css);
 @import url(./blocks/popup/__container/popup__container.css);
 
+
+@import url(./blocks/popup/__status-content/popup__status-content.css);
+@import url(./blocks/popup/__status-icon/popup__status-icon.css);
+@import url(./blocks/popup/__status-title/popup__status-title.css);
+
 @import url(./blocks/authorization/authorization.css);
 
 

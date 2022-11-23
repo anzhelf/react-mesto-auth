@@ -3,7 +3,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 
-import api from '../utils/Api';
+import { api, auth } from '../utils/Api';
 import '../index.css';
 
 import Header from './Header';
@@ -20,17 +20,28 @@ import InfoTooltip from './InfoTooltip';
 import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
+  //Данные  api
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
 
+  //Статусы попапов
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
-
   const [selectedCard, setSelectedCard] = useState({});
 
-  const [loggedIn, setLoggedIn] = useState(true);
+  //попап ответа сервера
+  const [isStatusPopupOpen, setIsStatusPopupOpen] = useState(false);
+
+  //Авторизован пользователь или нет
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  //данные auth
+  const [dataAuthorization, setDataAuthorization] = useState({});
+  //
+  const [requestStatus, setRequestStatus] = useState(false);
+
 
   useEffect(() => {
     Promise.all([api.getDataUser(), api.getInitialCards()])
@@ -40,6 +51,10 @@ function App() {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  function handleStatusPopupOpen() {
+    setIsStatusPopupOpen(true);
+  }
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -92,6 +107,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsImagePopupOpen(false);
     setSelectedCard({});
+    setIsStatusPopupOpen(false);
   }
 
   function handleUpdateUser(data) {
@@ -123,14 +139,39 @@ function App() {
       .catch((err) => console.log(err));
   }
 
+  function handleAddUser(data) {
+    auth.addUser(data.email, data.password)
+      .then((res) => {
+        console.log(res.data);
+        //данные поступают в таком виде {email, id} грубо говоря записываем их в переменную:
+        setDataAuthorization(res.data);
+        console.log(dataAuthorization);
+        setRequestStatus(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        setRequestStatus(false);
+      })
+      .finally(() => {
+        setIsStatusPopupOpen(true);
+      });
+  }
+
+  useEffect(() => {
+    console.log(dataAuthorization);
+  }, [dataAuthorization]);
+
+
   return (
 
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <Header
+          dataAuthorization={dataAuthorization}
           onLogged={loggedIn}
         />
         <Switch>
+
           <Route exact path="/">
             {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
 
@@ -146,7 +187,9 @@ function App() {
           </Route>
 
           <Route path="/sign-up">
-            <Register />
+            <Register
+              onUpdateAddUser={handleAddUser}
+            />
 
           </Route>
 
@@ -185,6 +228,12 @@ function App() {
         <ImagePopup
           card={selectedCard}
           isOpen={isImagePopupOpen}
+          onClose={closeAllPopups}
+        />
+
+        <InfoTooltip
+          requestStatus={requestStatus}
+          isOpen={isStatusPopupOpen}
           onClose={closeAllPopups}
         />
 

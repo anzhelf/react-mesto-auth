@@ -17,6 +17,14 @@ function Login() {
             <input
               className="authorization__input"
               placeholder="Email"
+            /*
+                          id="email"
+                          name="email"
+                          type="email"
+                          value={this.state.email}
+                          onChange={this.handleChange}
+            */
+
             /*onChange={handleNameProfile}
             value={nameProfile || ''}
             name="name"
@@ -35,6 +43,14 @@ function Login() {
             <input
               className="authorization__input"
               placeholder="Пароль"
+            /*
+                          id="password"
+                          name="password"
+                          type="password"
+                          value={this.state.password}
+                          onChange={this.handleChange}
+            */
+
             /*onChange={handleDescription}
             value={description || ''}
             name="about"

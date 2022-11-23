@@ -1,33 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-function Register() {
+//компонент модального окна,который информирует пользователя об успешной (или не очень) регистрации.
+function Register({ onUpdateAddUser }) {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  function handleEmail(e) {
+    setEmail(e.target.value);
+  }
+  function handlePassword(e) {
+    setPassword(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onUpdateAddUser({
+      email: email,
+      password: password
+    });
+  }
+
   return (
     <div className="authorization">
       <div className="authorization__container">
         <h3 className="authorization__title">Регистрация</h3>
         <form className='authorization__form'
-    /*
-      onSubmit={onSubmit}
-      className={`popup__form popup__form_${name} `}
-      name={name}
-      noValidate
-      */ >
+          onSubmit={handleSubmit}
+          noValidate >
           <label className="authorization__label">
             <input
               className="authorization__input"
               placeholder="Email"
-            /*onChange={handleNameProfile}
-            value={nameProfile || ''}
-            name="name"
-            type="text"
-            id="username"
-            minLength="2"
-            maxLength="40"
-            placeholder="Имя"
-            className="popup__input popup__input_type_name"
-            required*/
-            />
+              onChange={handleEmail}
+              id="email"
+              name="email"
+              type="email"
+              minLength="2"
+              maxLength="20"
+              required />
             <span className="username-input-error popup__input-error-name"></span>
           </label>
 
@@ -35,27 +47,22 @@ function Register() {
             <input
               className="authorization__input"
               placeholder="Пароль"
-            /*onChange={handleDescription}
-            value={description || ''}
-            name="about"
-            type="text"
-            id="biography"
-            minLength="2"
-            maxLength="200"
-            placeholder="Работа"
-            className="popup__input popup__input_type_job"
-            required
-            */
-            />
+              onChange={handlePassword}
+              id="password"
+              name="password"
+              type="password"
+              minLength="6"
+              maxLength="16"
+              required />
             <span className="biography-input-error popup__input-error-job"></span>
           </label>
 
           <button className="authorization__save-button"
-            // className={`popup__save-button popup__save-button_${name}`}
             type="submit"
             aria-label="Кнопка сохранить"
           >Зарегистрироваться</button>
-          <span className='authorization__span'>Уже зарегистрированы? <Link className='authorization__link' to='/sign-in'>Войти</Link></span>
+          <span className='authorization__span'>Уже зарегистрированы?
+            <Link className='authorization__link' to='/sign-in'>Войти</Link></span>
         </form>
       </div>
     </div>
