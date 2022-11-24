@@ -39,8 +39,8 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   //данные auth
-  const [dataAuthorization, setDataAuthorization] = useState({});
-  //
+  const [nameDomain, setNameDomain] = useState('');
+  //как прошел запрос к api
   const [requestStatus, setRequestStatus] = useState(false);
 
 
@@ -52,6 +52,8 @@ function App() {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  //console.log(window.location.pathname);
 
   function handleStatusPopupOpen() {
     setIsStatusPopupOpen(true);
@@ -176,13 +178,12 @@ function App() {
     if (localStorage.getItem('token')) {
       const token = localStorage.getItem('token');
       // здесь будем проверять токен
-      console.log(token);
+      //console.log(token);
       auth.getContent(token)
         .then((res) => {
           if (res) {
             // авторизуем пользователя
             setLoggedIn(true);
-            localStorage.setItem('email', res.data.email);
             // так, что теперь есть доступ к этому методу
             history.push('/');
           }
@@ -196,7 +197,6 @@ function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <Header
-          dataAuthorization={dataAuthorization}
           onLogged={loggedIn}
         />
         <Switch>
