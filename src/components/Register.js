@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 //компонент модального окна,который информирует пользователя об успешной (или не очень) регистрации.
 function Register({ onUpdateAddUser }) {
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 

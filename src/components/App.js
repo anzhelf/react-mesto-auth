@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 
 import { api, auth } from '../utils/Api';
@@ -20,6 +20,7 @@ import InfoTooltip from './InfoTooltip';
 import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
+  const history = useHistory();
   //Данные  api
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
@@ -144,9 +145,10 @@ function App() {
       .then((res) => {
         console.log(res.data);
         //данные поступают в таком виде {email, id} грубо говоря записываем их в переменную:
-        setDataAuthorization(res.data);
-        console.log(dataAuthorization);
+
+        //console.log(dataAuthorization);
         setRequestStatus(true);
+        history.push('/sign-in');
       })
       .catch((err) => {
         console.log(err);
@@ -157,13 +159,40 @@ function App() {
       });
   }
 
-  useEffect(() => {
-    console.log(dataAuthorization);
-  }, [dataAuthorization]);
+  function handleAuthorization(data) {
+    auth.authorize(data.email, data.password)
+      .then((res) => {
+        localStorage.setItem('token', res.token);
+        //console.log(res);
+        setLoggedIn(true);
+        history.push('/');
+      })
+      .catch((err) => console.log(err));
+  }
 
+  function tokenCheck() {
+    // если у пользователя есть токен в localStorage, 
+    // эта функция проверит, действующий он или нет
+    if (localStorage.getItem('token')) {
+      const token = localStorage.getItem('token');
+      // здесь будем проверять токен
+      console.log(token);
+      auth.getContent(token)
+        .then((res) => {
+          if (res) {
+            // авторизуем пользователя
+            setLoggedIn(true);
+            localStorage.setItem('email', res.data.email);
+            // так, что теперь есть доступ к этому методу
+            history.push('/');
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  }
+  tokenCheck();
 
   return (
-
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <Header
@@ -194,7 +223,9 @@ function App() {
           </Route>
 
           <Route path="/sign-in">
-            <Login />
+            <Login
+              onUpdateAuthorization={handleAuthorization}
+            />
           </Route>
 
         </Switch>

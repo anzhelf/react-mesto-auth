@@ -95,7 +95,7 @@ class Api {
     });
   }
 
-  autorisationUser(email, password) {
+  authorize(email, password) {
     return this._request(`${this._url}/signin`, {
       method: 'POST',
       headers: this._headers,
@@ -106,20 +106,15 @@ class Api {
     });
   }
 
-  tokenValidityCheck(JWT) {
+  getContent(token) {
     return this._request(`${this._url}/users/me`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        "Authorization": `Bearer ${JWT}`
-      },
-      body: JSON.stringify({
-        //_id,
-        //email
-      })
+        authorization: `Bearer ${localStorage.getItem('token')}`
+      }
     });
   }
-
 }
 
 const api = new Api({
