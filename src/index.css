@@ -38,13 +38,19 @@
 @import url(./blocks/popup/__close-icon/popup__close-icon.css);
 @import url(./blocks/popup/__container/popup__container.css);
 
-
 @import url(./blocks/popup/__status-content/popup__status-content.css);
 @import url(./blocks/popup/__status-icon/popup__status-icon.css);
 @import url(./blocks/popup/__status-title/popup__status-title.css);
 
 @import url(./blocks/authorization/authorization.css);
-
+@import url(./blocks/authorization/__container/authorization__container.css);
+@import url(./blocks/authorization/__title/authorization__title.css);
+@import url(./blocks/authorization/__form/authorization__form.css);
+@import url(./blocks/authorization/__label-password/authorization__label-password.css);
+@import url(./blocks/authorization/__input/authorization__input.css);
+@import url(./blocks/authorization/__link/authorization__link.css);
+@import url(./blocks/authorization/__save-button/authorization__save-button.css);
+@import url(./blocks/authorization/__span/authorization__span.css);
 
 @import url(./blocks/popup/__container/_avatar/popup__container_avatar.css);
 @import url(./blocks/popup/__container/_delete/popup__container-delete.css);
