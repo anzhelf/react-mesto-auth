@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 
-function Login({ onUpdateAuthorization, tokenCheck }) {
+function Login({ onUpdateAuthorization }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -27,7 +26,7 @@ function Login({ onUpdateAuthorization, tokenCheck }) {
         <form
           className='authorization__form'
           onSubmit={handleSubmit}
-          noValidate >
+        >
           <label className="authorization__label">
             <input
               value={email || ''}

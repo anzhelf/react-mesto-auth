@@ -82,5 +82,4 @@ const api = new Api({
     authorization: '653fc287-1617-4fdf-ab2c-e8fd91183c7f'
   }
 });
-
 export { api };

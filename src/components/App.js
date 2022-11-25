@@ -45,7 +45,6 @@ function App() {
   //как прошел запрос к api
   const [requestStatus, setRequestStatus] = useState(false);
 
-
   useEffect(() => {
     Promise.all([api.getDataUser(), api.getInitialCards()])
       .then(([dataUser, dataCards]) => {
@@ -165,11 +164,7 @@ function App() {
 
   function handleAddUser(data) {
     auth.register(data.email, data.password)
-      .then((res) => {
-        //console.log(res.data);
-        //данные поступают в таком виде {email, id} грубо говоря записываем их в переменную:
-
-        //console.log(dataAuthorization);
+      .then(() => {
         setRequestStatus(true);
         history.push('/sign-in');
       })
@@ -186,7 +181,6 @@ function App() {
     auth.authorize(data.email, data.password)
       .then((res) => {
         localStorage.setItem('token', res.token);
-        //console.log(res);
         setLoggedIn(true);
         history.push('/');
       })
@@ -199,15 +193,11 @@ function App() {
     if (localStorage.getItem('token')) {
       const token = localStorage.getItem('token');
       // здесь будем проверять токен
-      //console.log(token);
       auth.checkToken(token)
         .then((res) => {
-          /// console.log(res);
-
           if (res) {
             // авторизуем пользователя
             setLoggedIn(true);
-            // так, что теперь есть доступ к этому методу
             history.push('/');
           }
         })

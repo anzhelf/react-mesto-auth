@@ -6,6 +6,7 @@ function PopupWithForm({ name, title, children, buttonSave, isOpen, onClose, onS
       onClose();
     }
   }
+
   return (
     <div
       onClick={closeByOverlay}
@@ -22,7 +23,7 @@ function PopupWithForm({ name, title, children, buttonSave, isOpen, onClose, onS
             onSubmit={onSubmit}
             className={`popup__form popup__form_${name} `}
             name={name}
-            noValidate >
+          >
             {children}
             <button
               className={`popup__save-button popup__save-button_${name}`}

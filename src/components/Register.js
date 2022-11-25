@@ -25,9 +25,7 @@ function Register({ onUpdateAddUser }) {
     <div className="authorization">
       <div className="authorization__container">
         <h3 className="authorization__title">Регистрация</h3>
-        <form className='authorization__form'
-          onSubmit={handleSubmit}
-          noValidate >
+        <form className='authorization__form' onSubmit={handleSubmit} >
           <label className="authorization__label">
             <input
               value={email || ''}

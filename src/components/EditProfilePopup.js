@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import useForm from '../hooks/useForm';
@@ -63,7 +63,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         />
         <span className="biography-input-error popup__input-error-job"></span>
       </label>
-
     </PopupWithForm>
   )
 }

@@ -2,7 +2,6 @@ import React from 'react';
 import iconOk from '../images/iconOk.png';
 import iconError from '../images/iconError.png';
 
-
 function InfoTooltip({ requestStatus, isOpen, onClose }) {
   function closeByOverlay(e) {
     if (e.target === e.currentTarget) {

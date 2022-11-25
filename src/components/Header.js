@@ -1,8 +1,8 @@
 import React from 'react';
 import logo from '../images/logo.svg';
-import { Link, useHistory, Route, Redirect } from 'react-router-dom';
+import { Link, useHistory, Route } from 'react-router-dom';
 
-function Header({ loggedIn }) {
+function Header() {
   const history = useHistory();
   const email = localStorage.getItem('email');
 
