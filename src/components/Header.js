@@ -1,42 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import logo from '../images/logo.svg';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, Route, Redirect } from 'react-router-dom';
 
-function Header({ onLogged }) {
+function Header({ loggedIn }) {
   const history = useHistory();
   const email = localStorage.getItem('email');
 
-  const [textLink, setTextLink] = useState('Test');
-
-  useEffect(() => {
-    onClickTextLink();
-  }, [])
-
-
-  function onClickTextLink() {
-    const isDomain = window.location.pathname;
-    if (isDomain === '/sign-up') {
-      setTextLink('Регистрация');
-    }
-    else {
-      setTextLink('Войти');
-    }
-  };
-
   function signOut() {
     localStorage.removeItem('token');
-    history.push('/login');
-  }
-  function onClickLink() {
-    const isDomain = window.location.pathname;
-    let link;
-    if (isDomain === '/sign-in') {
-      link = '/sign-up';
-    }
-    else {
-      link = '/sign-in';
-    }
-    return link;
+    history.push('/sign-in');
   }
 
   return (
@@ -47,14 +19,27 @@ function Header({ onLogged }) {
         alt="Логотип с надписью место россия"
       />
       <div className='header__box'>
-        <span className='header__email'>{onLogged && email}</span>
-        <Link
-          to={onClickLink}
-          onClick={onLogged ? signOut : onClickTextLink}
-          className={
-            `header__link ${onLogged ?
-              'header__link-authorization'
-              : ''}`}>{onLogged ? 'Выйти' : textLink}</Link>
+
+        <Route exact path="/">
+          <span className='header__email'>{email}</span>
+          <Link
+            to='/sign-in'
+            onClick={signOut}
+            className='header__link'>Выйти</Link>
+        </Route>
+
+        <Route path="/sign-up">
+          <Link className="header__link" to="/sign-in">
+            Войти
+          </Link>
+        </Route>
+
+        <Route path="/sign-in">
+          <Link className="header__link" to='/sign-up'>
+            Регистрация
+          </Link>
+        </Route>
+
       </div>
     </header>
   );

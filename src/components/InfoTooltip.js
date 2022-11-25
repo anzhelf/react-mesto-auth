@@ -4,18 +4,13 @@ import iconError from '../images/iconError.png';
 
 
 function InfoTooltip({ requestStatus, isOpen, onClose }) {
-  /*
-    handleSubmit(e) {
-      e.preventDefault()
-      if (this.state.password === this.state.confirmPassword) {
-        const { username, password, email } = this.state;
-        duckAuth.register(username, password, email);
-      }
+  function closeByOverlay(e) {
+    if (e.target === e.currentTarget) {
+      onClose();
     }
-    */
-
+  }
   return (
-    <div className={`popup ${isOpen ? 'popup_opened' : ''}`}>
+    <div onClick={closeByOverlay} className={`popup ${isOpen ? 'popup_opened' : ''}`}>
       <div className='popup__container'>
         <button
           className="popup__close-icon"

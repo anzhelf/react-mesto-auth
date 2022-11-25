@@ -166,7 +166,7 @@ function App() {
   function handleAddUser(data) {
     auth.register(data.email, data.password)
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         //данные поступают в таком виде {email, id} грубо говоря записываем их в переменную:
 
         //console.log(dataAuthorization);

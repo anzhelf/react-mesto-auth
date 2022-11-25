@@ -30,6 +30,7 @@ function Register({ onUpdateAddUser }) {
           noValidate >
           <label className="authorization__label">
             <input
+              value={email || ''}
               className="authorization__input"
               placeholder="Email"
               onChange={handleEmail}
@@ -37,13 +38,13 @@ function Register({ onUpdateAddUser }) {
               name="email"
               type="email"
               minLength="2"
-              maxLength="20"
               required />
             <span className="username-input-error popup__input-error-name"></span>
           </label>
 
           <label className="authorization__label authorization__label-password">
             <input
+              value={password || ''}
               className="authorization__input"
               placeholder="Пароль"
               onChange={handlePassword}
@@ -51,7 +52,6 @@ function Register({ onUpdateAddUser }) {
               name="password"
               type="password"
               minLength="6"
-              maxLength="16"
               required />
             <span className="biography-input-error popup__input-error-job"></span>
           </label>

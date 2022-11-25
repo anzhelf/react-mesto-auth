@@ -30,6 +30,7 @@ function Login({ onUpdateAuthorization, tokenCheck }) {
           noValidate >
           <label className="authorization__label">
             <input
+              value={email || ''}
               className="authorization__input"
               placeholder="Email"
               onChange={handleEmail}
@@ -37,7 +38,6 @@ function Login({ onUpdateAuthorization, tokenCheck }) {
               name="email"
               type="email"
               minLength="2"
-              maxLength="20"
               required
             />
             <span className="username-input-error popup__input-error-name"></span>
@@ -45,6 +45,7 @@ function Login({ onUpdateAuthorization, tokenCheck }) {
 
           <label className="authorization__label authorization__label-password">
             <input
+              value={password || ''}
               className="authorization__input"
               placeholder="Пароль"
               onChange={handlePassword}
@@ -52,7 +53,6 @@ function Login({ onUpdateAuthorization, tokenCheck }) {
               name="password"
               type="password"
               minLength="6"
-              maxLength="16"
               required
             />
             <span className="biography-input-error popup__input-error-job"></span>
