@@ -3,7 +3,9 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 
-import { api, auth } from '../utils/Api';
+import { api } from '../utils/Api';
+import { auth } from '../utils/Auth';
+
 import '../index.css';
 
 import Header from './Header';
@@ -143,7 +145,7 @@ function App() {
   }
 
   function handleAddUser(data) {
-    auth.addUser(data.email, data.password)
+    auth.register(data.email, data.password)
       .then((res) => {
         console.log(res.data);
         //данные поступают в таком виде {email, id} грубо говоря записываем их в переменную:
@@ -179,8 +181,10 @@ function App() {
       const token = localStorage.getItem('token');
       // здесь будем проверять токен
       //console.log(token);
-      auth.getContent(token)
+      auth.checkToken(token)
         .then((res) => {
+          /// console.log(res);
+
           if (res) {
             // авторизуем пользователя
             setLoggedIn(true);

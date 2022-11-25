@@ -1,31 +1,21 @@
-class Api {
+import { BaseApi } from './BaseApi';
+
+class Api extends BaseApi {
   constructor(config) {
+    super(config);
     this._url = config.url;
     this._headers = config.headers;
   }
 
-  _checkResponse(res) {
-    if (res.ok) {
-      return res.json();
-    }
-    else {
-      return Promise.reject(`Ошибка: ${res.status}`);
-    }
-  }
-
-  _request(url, options) {
-    return fetch(url, options).then(this._checkResponse);
-  }
-
   getDataUser() {
-    return this._request(`${this._url}/users/me`, {
+    return super._request(`${this._url}/users/me`, {
       method: 'GET',
       headers: this._headers
     });
   }
 
   editAvatarUser(avatar) {
-    return this._request(`${this._url}/users/me/avatar`, {
+    return super._request(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
@@ -35,7 +25,7 @@ class Api {
   }
 
   editDataUser(name, about) {
-    return this._request(`${this._url}/users/me`, {
+    return super._request(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
@@ -46,14 +36,14 @@ class Api {
   }
 
   getInitialCards() {
-    return this._request(`${this._url}/cards `, {
+    return super._request(`${this._url}/cards `, {
       method: 'GET',
       headers: this._headers
     });
   }
 
   addNewCard(name, link) {
-    return this._request(`${this._url}/cards`, {
+    return super._request(`${this._url}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
@@ -64,55 +54,23 @@ class Api {
   }
 
   deleteLikeCard(id) {
-    return this._request(`${this._url}/cards/${id}/likes`, {
+    return super._request(`${this._url}/cards/${id}/likes`, {
       method: 'DELETE',
       headers: this._headers,
     });
   }
 
   likeCard(id) {
-    return this._request(`${this._url}/cards/${id}/likes`, {
+    return super._request(`${this._url}/cards/${id}/likes`, {
       method: 'PUT',
       headers: this._headers,
     });
   }
 
   deleteCard(id) {
-    return this._request(`${this._url}/cards/${id}`, {
+    return super._request(`${this._url}/cards/${id}`, {
       method: 'DELETE',
       headers: this._headers,
-    });
-  }
-
-  addUser(email, password) {
-    return this._request(`${this._url}/signup`, {
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify({
-        email,
-        password
-      })
-    });
-  }
-
-  authorize(email, password) {
-    return this._request(`${this._url}/signin`, {
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify({
-        email,
-        password
-      })
-    });
-  }
-
-  getContent(token) {
-    return this._request(`${this._url}/users/me`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: `Bearer ${localStorage.getItem('token')}`
-      }
     });
   }
 }
@@ -125,11 +83,4 @@ const api = new Api({
   }
 });
 
-const auth = new Api({
-  url: 'https://auth.nomoreparties.co',
-  headers: {
-    'Content-Type': 'application/json',
-  }
-});
-
-export { api, auth };
+export { api };
