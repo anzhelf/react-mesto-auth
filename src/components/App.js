@@ -245,7 +245,6 @@ function App() {
             <Register
               onUpdateAddUser={handleAddUser}
             />
-
           </Route>
 
           <Route path="/sign-in">

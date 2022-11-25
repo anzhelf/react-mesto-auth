@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
+import useForm from '../hooks/useForm';
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const [avatar, setAvatar] = useState('');
+  const { values, handleChange, setValues } = useForm({});
 
   useEffect(() => {
     setAvatar('');
