@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
+import { useForm } from '../hooks/useForm'
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
+  //const { nameCard, handleChangeNameCard, setNameCard } = useForm('');
+  //console.log(nameCard);
   const [nameCard, setNameCard] = useState('');
   const [link, setLink] = useState('');
 

@@ -115,6 +115,25 @@ function App() {
     setIsStatusPopupOpen(false);
   }
 
+  const isOpen =
+    isEditAvatarPopupOpen
+    || isEditProfilePopupOpen
+    || isAddPlacePopupOpen
+    || selectedCard
+  useEffect(() => {
+    function closeByEscape(e) {
+      if (e.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+    if (isOpen) { // навешиваем только при открытии
+      document.addEventListener('keydown', closeByEscape);
+      return () => {
+        document.removeEventListener('keydown', closeByEscape);
+      }
+    }
+  }, [isOpen])
+
   function handleUpdateUser(data) {
     api.editDataUser(data.name, data.about)
       .then(data => {

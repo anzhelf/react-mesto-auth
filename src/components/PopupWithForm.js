@@ -1,8 +1,15 @@
 import React from 'react';
 
 function PopupWithForm({ name, title, children, buttonSave, isOpen, onClose, onSubmit }) {
+  function closeByOverlay(e) {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  }
   return (
-    <div className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : ''}`}>
+    <div
+      onClick={closeByOverlay}
+      className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : ''}`}>
       <div className={`popup__box popup__container popup__container_${name} `}>
         <button
           className="popup__close-icon"
