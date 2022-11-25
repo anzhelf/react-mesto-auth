@@ -214,7 +214,10 @@ function App() {
         .catch((err) => console.log(err));
     }
   }
-  tokenCheck();
+
+  useEffect(() => {
+    tokenCheck();
+  }, [])
 
   return (
     <div className="page">
@@ -247,6 +250,7 @@ function App() {
 
           <Route path="/sign-in">
             <Login
+              tokenCheck={tokenCheck}
               onUpdateAuthorization={handleAuthorization}
             />
           </Route>
