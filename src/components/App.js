@@ -54,12 +54,6 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
-  //console.log(window.location.pathname);
-
-  function handleStatusPopupOpen() {
-    setIsStatusPopupOpen(true);
-  }
-
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }

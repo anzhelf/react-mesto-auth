@@ -6,7 +6,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
   const { values, handleChange, setValues } = useForm({});
 
   useEffect(() => {
-    setValues('');
+    setValues({ name: '', link: '' });
   }, [isOpen]);
 
   function handleSubmit(e) {

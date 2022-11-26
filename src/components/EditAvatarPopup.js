@@ -6,7 +6,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const { values, handleChange, setValues } = useForm({});
 
   useEffect(() => {
-    setValues('');
+    setValues({ name: '', link: '' });
   }, [isOpen]);
 
   function handleSubmit(e) {
