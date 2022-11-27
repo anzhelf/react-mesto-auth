@@ -40,8 +40,6 @@ function App() {
   //Авторизован пользователь или нет
   const [loggedIn, setLoggedIn] = useState(false);
 
-  //данные auth
-  const [nameDomain, setNameDomain] = useState('');
   //как прошел запрос к api
   const [requestStatus, setRequestStatus] = useState(false);
 
@@ -211,19 +209,19 @@ function App() {
         />
         <Switch>
 
-          <Route exact path="/">
-            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+          <ProtectedRoute
+            path="/"
+            loggedIn={loggedIn}
+            component={Main}
 
-            <Main
-              onEditAvatar={handleEditAvatarClick}
-              onEditProfile={handleEditProfileClick}
-              onAddPlace={handleAddPlaceClick}
-              onCardClick={handleCardClick}
-              cards={cards}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
-            />
-          </Route>
+            onEditAvatar={handleEditAvatarClick}
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onCardClick={handleCardClick}
+            cards={cards}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
+          />
 
           <Route path="/sign-up">
             <Register
