@@ -210,6 +210,7 @@ function App() {
         <Switch>
 
           <ProtectedRoute
+            exact
             path="/"
             loggedIn={loggedIn}
             component={Main}
