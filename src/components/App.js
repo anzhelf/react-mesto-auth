@@ -39,6 +39,7 @@ function App() {
 
   //Авторизован пользователь или нет
   const [loggedIn, setLoggedIn] = useState(false);
+  const [email, setEmail] = useState('');
 
   //как прошел запрос к api
   const [requestStatus, setRequestStatus] = useState(false);
@@ -173,6 +174,8 @@ function App() {
     auth.authorize(data.email, data.password)
       .then((res) => {
         localStorage.setItem('token', res.token);
+        localStorage.setItem('email', data.email);
+        setEmail(data.email);
         setLoggedIn(true);
         history.push('/');
       })
@@ -206,6 +209,7 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Header
           onLogged={loggedIn}
+          email={email}
         />
         <Switch>
 
@@ -282,35 +286,3 @@ function App() {
   );
 }
 export default App;
-
-/*
-         <Route exact path="/">
-            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
-
-            <Main
-              onEditAvatar={handleEditAvatarClick}
-              onEditProfile={handleEditProfileClick}
-              onAddPlace={handleAddPlaceClick}
-              onCardClick={handleCardClick}
-              cards={cards}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
-            />
-          </Route>
-
-          */
-/*
-<ProtectedRoute
-  path="/"
-  loggedIn={loggedIn}
-  component={Main}
-
-  onEditAvatar={handleEditAvatarClick}
-  onEditProfile={handleEditProfileClick}
-  onAddPlace={handleAddPlaceClick}
-  onCardClick={handleCardClick}
-  cards={cards}
-  onCardLike={handleCardLike}
-  onCardDelete={handleCardDelete}
-/>
-*/

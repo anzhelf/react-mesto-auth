@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import logo from '../images/logo.svg';
 import { Link, useHistory, Route } from 'react-router-dom';
 
-function Header() {
+function Header({ email }) {
   const history = useHistory();
-  const email = localStorage.getItem('email');
 
   function signOut() {
     localStorage.removeItem('token');
+    localStorage.removeItem('email');
+    email = '';
     history.push('/sign-in');
   }
 
@@ -21,7 +22,7 @@ function Header() {
       <div className='header__box'>
 
         <Route exact path="/">
-          <span className='header__email'>{email}</span>
+          <span className='header__email'>{email || localStorage.getItem('email')}</span>
           <Link
             to='/sign-in'
             onClick={signOut}
